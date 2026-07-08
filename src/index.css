@@ -1,0 +1,57 @@
+:root {
+  --lane: #17140f;
+  --maple: #211c15;
+  --maple-raised: #2a241a;
+  --oil-amber: #e2a33d;
+  --arrow-red: #c1442e;
+  --chalk: #ede6d6;
+  --taupe: #8c8272;
+  --taupe-dim: #5c5548;
+
+  --font-display: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--lane);
+  color: var(--chalk);
+  font-family: var(--font-body);
+}
+
+::selection {
+  background: var(--oil-amber);
+  color: var(--lane);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--lane);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--taupe-dim);
+  border-radius: 5px;
+}
+
+button {
+  font-family: inherit;
+}
+
+input {
+  font-family: inherit;
+}
