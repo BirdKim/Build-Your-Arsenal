@@ -1,43 +1,69 @@
-# Arsenal — bowling ball comparison app
+# Ball Motion Explorer
 
-A Vite + React app for comparing bowling ball specs and visualizing where
-each ball sits on a Length vs. Hook Potential dot plot (modeled after how
-Storm/Motiv chart their own lineups).
+A React + Vite app for comparing bowling balls by their motion characteristics. The interface lets you browse a curated dataset, filter by brand, and compare up to six balls side by side through a radar-style motion chart.
 
-## Setup
+## What the app does
+
+- Search and filter the ball catalog by name, brand, or coverstock
+- Compare selected balls with a radar chart across length, midlane read, flare, backend, and hook
+- View each ball's core specs such as RG, differential, and intermediate differential
+- Score motion traits using a lightweight heuristic model based on the ball's physical attributes
+
+## Tech stack
+
+- React
+- Vite
+- JavaScript
+- Recharts
+- Lucide React
+
+## Project structure
+
+```text
+src/
+├── App.jsx
+├── components/
+│   ├── BallCard.jsx
+│   ├── Bar.jsx
+│   ├── ComparisonPanel.jsx
+│   └── FilterBar.jsx
+├── data/
+│   └── balls.json
+├── index.css
+├── lib/
+│   ├── ScoreBall.js
+│   └── constants.js
+└── main.jsx
+```
+
+## Data and scoring
+
+The ball catalog lives in [src/data/balls.json](src/data/balls.json). Each ball includes specs such as RG, differential, intermediate differential, finish grit, and coverstock type. Some aspect of the finish grit was hard to normalize, so I estimated that the balls that had a Polish finish was estimated to have 4000 grit finish, Reacta Gloss finish was estimated to have 5000 grit finish, and Compound finish was estimated to have 3000 grit finish.
+The scoring logic in [src/lib/ScoreBall.js](src/lib/ScoreBall.js) normalizes the values and converts them into motion scores for the comparison view.
+
+## Development
+
+Install dependencies:
 
 ```bash
 npm install
+```
+
+Start the local dev server:
+
+```bash
 npm run dev
 ```
 
-Then open the local URL Vite prints (usually http://localhost:5173).
+Create a production build:
 
-## What's here
+```bash
+npm run build
+```
 
-- `src/data/balls.json` — the 142-ball dataset (9 brands), converted from
-  the master CSV. Each ball also has `hook_score` and `length_score`
-  (numeric 1–6 scales) derived from the free-text `hook_potential` and
-  `length` fields, so the dot plot has something numeric to plot against.
-- `src/components/BallBrowser.jsx` — left sidebar: search, brand filter
-  chips, and the full ball list. Click a ball to add/remove it from the
-  plot.
-- `src/components/SelectedTray.jsx` — removable chip row showing which
-  balls are currently selected.
-- `src/components/DotPlot.jsx` — the Recharts scatter plot. Only renders
-  balls you've selected (per the original spec — no firehose of all 142
-  balls at once). Markers are styled as little bowling balls (3 finger
-  holes), colored by brand.
-- `src/brandColors.js` — the brand → color mapping used across the app.
+## Notes
 
-## Design notes
-
-- Palette and type system lean into the subject: dark lane-wood
-  background (`--lane`), an oil-sheen amber accent (`--oil-amber`), and a
-  condensed scoreboard-style display face (Oswald) for headings, paired
-  with Inter for body text and JetBrains Mono for spec numbers.
-- The plot background has a subtle vertical rule pattern suggesting lane
-  boards.
+The motion scoring is an approximation intended for comparison and visualization rather than a precise physics model. It is useful for exploring how different ball specs may influence motion on the lanes.
 
 ## AI Collaboration
 
@@ -51,15 +77,3 @@ This project demonstrates my ability to effectively direct AI tools while mainta
 
 This project was completed as part of Anthropic's **AI Fluency: Framework & Foundations** course, exploring effective and responsible AI-assisted software development using Claude AI.
 
-## Known simplifications (worth revisiting)
-
-- `length_score` is a judgment-call mapping from messy free text (e.g.
-  "Medium (early/blendy)") onto a 1–6 scale. It's a reasonable
-  approximation for plotting, not a precise measurement — worth
-  sanity-checking against real ball behavior as you go.
-
-## Next steps (per project plan)
-
-1. Build the trajectory graph (second visualization) — approximate
-   physics curve down a 60ft lane based on RG/diff/coverstock/length/
-   hook/backend.
