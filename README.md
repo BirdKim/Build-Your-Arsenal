@@ -1,20 +1,20 @@
-# Ball Motion Explorer
+# Build Your Arsenal
 
-A React + Vite app for comparing bowling balls by their motion characteristics. The interface lets you browse a curated dataset, filter by brand, toggle to only view selected balls, and compare up to six balls side by side through a radar-style motion chart.
+Build Your Arsenal is a React + Vite app for comparing bowling balls by motion profile. The interface lets you browse a curated catalog, filter by brand or view only the selected balls, select balls for side-by-side comparison, and open compact side panels for an Arsenal Advisor and a ball-request form.
 
 ## What the app does
 
 - Search and filter the ball catalog by name, brand, or coverstock
 - Toggle between the full catalog and a filtered view of the balls currently selected for comparison
-- Compare selected balls with a radar chart across length, midlane read, flare, backend, and hook
-- Use the Arsenal Gap Advisor to enter player specs and identify three balls that fill a motion gap in the selected lineup
-- With a ball comparison of more than one ball, identify the closest pair in the bag and suggest a replacement selected from the full catalog
-- View each ball's core specs such as RG, differential, and intermediate differential
-- Score motion traits using a lightweight heuristic model based on the ball's physical attributes
+- Compare selected balls with a radar chart across motion-related traits like length, midlane read, flare, backend potential, and hook
+- Use the Arsenal Advisor to evaluate the current lineup and suggest balls that could fill a gap
+- Submit requests for balls that are missing from the database through a drawer-style form
+- View core specs such as RG, differential, intermediate differential, finish, and coverstock
+- Score motion traits using a lightweight heuristic model based on each ball's physical attributes
 
 ## Current dataset
 
-The app currently loads 145 bowling balls across 9 brands, including 900 Global, Brunswick, DV8, Ebonite, Hammer, Motiv, Radical, Roto Grip, and Storm.
+The app currently loads 147 bowling balls across 9 brands, including 900 Global, Brunswick, DV8, Ebonite, Hammer, Motiv, Radical, Roto Grip, and Storm.
 
 ## Tech stack
 
@@ -27,30 +27,38 @@ The app currently loads 145 bowling balls across 9 brands, including 900 Global,
 ## Project structure
 
 ```text
-src/
+server
+├── ballRequests.js
+├── data
+│   └── ball-requests.json
+└── recommendBalls.js
+src
 ├── App.jsx
-├── components/
+├── brandColors.js
+├── components
+│   ├── ArsenalAdvisor.jsx
 │   ├── BallCard.jsx
+│   ├── BallRequestForm.jsx
 │   ├── Bar.jsx
 │   ├── ComparisonPanel.jsx
-│   ├── ArsenalAdvisor.jsx
 │   └── FilterBar.jsx
-├── data/
+├── data
 │   └── balls.json
 ├── index.css
-├── lib/
+├── lib
 │   ├── ScoreBall.js
-│   ├── recommendArsenal.js
-│   └── constants.js
+│   ├── constants.js
+│   └── recommendArsenal.js
 └── main.jsx
 ```
 
 ## Data and scoring
 
 The ball catalog lives in [src/data/balls.json](src/data/balls.json). Each ball includes specs such as RG, differential, intermediate differential, finish grit, and coverstock type. Finish values were normalized where needed, including Polish as roughly 4000 grit, Reacta Gloss as roughly 5000 grit, and Compound as roughly 3000 grit.
-The scoring logic in [src/lib/ScoreBall.js](src/lib/ScoreBall.js) normalizes the values and converts them into motion scores for the comparison view.
 
-## Development
+The scoring logic in [src/lib/ScoreBall.js](src/lib/ScoreBall.js) normalizes those values and converts them into motion scores for the comparison view.
+
+## Local development
 
 Install dependencies:
 
@@ -64,21 +72,21 @@ Start the local dev server:
 npm run dev
 ```
 
-### AI recommendations
-
-The AI recommendation endpoint is available while running the Vite development server and as a Vercel serverless function in production. Copy `.env.example` to `.env`, then add your Anthropic API key:
-
-```env
-ANTHROPIC_API_KEY=your_key_here
-```
-
-Keep this key server-side. Do not use a `VITE_` prefix or commit the `.env` file.
-
 Create a production build:
 
 ```bash
 npm run build
 ```
+
+## Local backend and requests
+
+The app includes lightweight local API routes defined in [vite.config.js](vite.config.js):
+
+- POST /api/ball-requests saves new ball requests to [server/data/ball-requests.json](server/data/ball-requests.json)
+- GET /api/ball-requests lists saved requests
+- POST /api/recommend-balls is wired for recommendation support
+
+The current recommendation helper in [server/recommendBalls.js](server/recommendBalls.js) is a placeholder, so the advisor UI is ready for future integration with an external recommendation service.
 
 ## Notes
 
@@ -86,12 +94,10 @@ The motion scoring is an approximation intended for comparison and visualization
 
 ## AI Collaboration
 
-This project was completed as part of Anthropic's **AI Fluency: Framework & Foundations** course, which focuses on responsible human-AI collaboration.
+This project was completed as part of Anthropic's AI Fluency: Framework & Foundations course, which focused on responsible human-AI collaboration.
 
-Claude AI served as my primary development assistant, generating much of the application's codebase and assisting with data organization. My responsibilities included defining the project's scope, researching and selecting the bowling balls, cleaning and validating the dataset, managing version control, testing the application, identifying UI issues, and refining the final product.
-
-This project demonstrates my ability to effectively direct AI tools while maintaining responsibility for project planning, data quality, testing, and final implementation decisions.
+Claude AI served as a development assistant throughout the project, helping with implementation, data organization, and UI iteration. My responsibilities included defining the scope, researching and validating the ball dataset, testing the app, refining the experience, and making the final product decisions.
 
 ## Acknowledgements
 
-This project was completed as part of Anthropic's **AI Fluency: Framework & Foundations** course, exploring effective and responsible AI-assisted software development using Claude AI.
+This project was started as part of Anthropic's AI Fluency: Framework & Foundations course, exploring effective and responsible AI-assisted software development using Claude AI.
