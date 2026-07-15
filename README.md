@@ -6,7 +6,7 @@ Build Your Arsenal is a React + Vite app for comparing bowling balls by motion p
 
 A deployed version of the app is available on Vercel.
 
-- [Open the deployed app](bowling-arsenal-builder.vercel.app)
+- [Open the deployed app](https://bowling-arsenal-builder.vercel.app)
 
 ## What the app does
 
