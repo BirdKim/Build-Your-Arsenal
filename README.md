@@ -1,12 +1,12 @@
-# Build Your Arsenal
+# Bowling Arsenal Builder
 
-Build Your Arsenal is a React + Vite app for comparing bowling balls by motion profile. The interface lets you browse a curated catalog, filter by brand or view only the selected balls, select balls for side-by-side comparison, and open compact side panels for an Arsenal Advisor and a ball-request form.
+Bowling Arsenal Builder is a React + Vite app for comparing bowling balls by motion profile. The interface lets you browse a curated catalog, filter by brand or view only the selected balls, select balls for side-by-side comparison, and open compact side panels for an Arsenal Advisor and a ball-request form.
 
 ## Live Demo
 
 A deployed version of the app is available on Vercel.
 
-- [Open the deployed app](https://bowling-arsenal-builder.vercel.app)
+- [Open Bowling Arsenal Builder](https://bowling-arsenal-builder.vercel.app)
 
 ## What the app does
 
