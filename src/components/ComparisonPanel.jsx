@@ -19,14 +19,14 @@ export default function ComparisonPanel({ selected, radarData, onToggle }) {
             <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: "#6B5F49", fontSize: 9 }} />
             {selected.map((b, i) => (
               <Radar key={b.ball_name} name={b.ball_name} dataKey={b.ball_name}
-                stroke={LINE_COLORS[i]} fill={LINE_COLORS[i]} fillOpacity={0.18} strokeWidth={2} />
+                stroke={LINE_COLORS[i]} fill={LINE_COLORS[i]} fillOpacity={0.10} strokeWidth={2} />
             ))}
           </RadarChart>
         </ResponsiveContainer>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 10, flex: 1, minWidth: 200 }}>
         <div style={{ fontSize: 11, color: "#8A7E67", textTransform: "uppercase", letterSpacing: 1, display: "flex", alignItems: "center", gap: 6 }}>
-          <Info size={12} /> Comparing {selected.length} of 6
+          <Info size={12} /> Comparing {selected.length} of 10
         </div>
         {selected.map((b, i) => (
           <div key={b.ball_name} style={{ display: "flex", alignItems: "center", gap: 8 }}>

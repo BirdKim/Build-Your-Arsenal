@@ -40,7 +40,7 @@ export default function App() {
     setSelected(prev => {
       const exists = prev.find(b => b.ball_name === ball.ball_name && b.brand === ball.brand);
       if (exists) return prev.filter(b => !(b.ball_name === ball.ball_name && b.brand === ball.brand));
-      if (prev.length >= 6) return prev;
+      if (prev.length >= 10) return prev;
       return [...prev, ball];
     });
   }
